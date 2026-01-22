@@ -46,31 +46,59 @@
 </header>
 
 <!-- HERO SECTION -->
-<section class="relative h-screen bg-[url('assets/images/hero.jpg')] bg-cover bg-center">
+<!-- HERO SLIDER SECTION -->
+<section class="relative h-screen overflow-hidden">
+
+  <!-- Slides -->
+  <div class="absolute inset-0">
+    <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-100 transition-opacity duration-1000"
+      style="background-image:url('assets/images/canon-shot-water-slide-500x500.webp')"></div>
+
+    <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000"
+      style="background-image:url('assets/images/playground.jpg')"></div>
+
+    <div class="hero-slide absolute inset-0 bg-cover bg-center opacity-0 transition-opacity duration-1000"
+      style="background-image:url('assets/images/outdoor-gym.jpg')"></div>
+  </div>
+
+  <!-- Dark Overlay -->
   <div class="absolute inset-0 bg-black/60"></div>
 
+  <!-- Content -->
   <div class="relative z-10 flex items-center h-full">
     <div class="max-w-7xl mx-auto px-4 text-white">
       <h1 class="text-4xl md:text-6xl font-bold leading-tight">
         Leading Manufacturer of <br>
         Outdoor & Water Park Equipment
       </h1>
+
       <p class="mt-6 text-lg max-w-2xl">
         End-to-end design, manufacturing and installation of playground,
         water park and outdoor fitness equipment across India.
       </p>
 
       <div class="mt-8 flex gap-4">
-        <a href="#" class="bg-orange-500 px-6 py-3 rounded text-lg hover:bg-orange-600">
+        <a href="#" class="bg-orange-500 px-6 py-3 rounded text-lg hover:bg-orange-600 transition">
           Get a Quote
         </a>
-        <a href="#" class="border border-white px-6 py-3 rounded text-lg hover:bg-white hover:text-black">
+        <a href="#" class="border border-white px-6 py-3 rounded text-lg hover:bg-white hover:text-black transition">
           Download Catalogue
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Navigation Arrows -->
+  <button onclick="prevSlide()" class="hidden md:flex absolute left-6 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/70">
+    ‹
+  </button>
+
+  <button onclick="nextSlide()" class="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/70">
+    ›
+  </button>
+
 </section>
+
 
 <!-- TRUST INDICATORS -->
 <section class="bg-gray-100 py-12">
@@ -90,7 +118,7 @@
 
     <div class="grid md:grid-cols-3 gap-8">
       <div class="shadow hover:shadow-xl transition rounded overflow-hidden">
-        <img src="assets/images/waterpark.jpg" class="h-56 w-full object-cover">
+        <img src="assets/images/canon-shot-water-slide-500x500.webp" class="h-56 w-full object-cover">
         <div class="p-5">
           <h3 class="text-xl font-semibold">Water Park Equipment</h3>
         </div>
@@ -159,4 +187,32 @@
 </footer>
 
 </body>
+
+<!-- JS -->
+
+<script>
+  const slides = document.querySelectorAll(".hero-slide");
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("opacity-100", i === index);
+      slide.classList.toggle("opacity-0", i !== index);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  // Auto slide every 5 seconds
+  setInterval(nextSlide, 5000);
+</script>
+
 </html>
